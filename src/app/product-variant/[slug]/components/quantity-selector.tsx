@@ -20,7 +20,12 @@ const QuantitySelector = () => {
     <div className="space-y-4">
       <h3 className="font-medium">Quantidade</h3>
       <div className="flex w-[100px] items-center justify-between rounded-lg border">
-        <Button size="icon" variant="ghost" onClick={handleDecrement}>
+        <Button
+          size="icon"
+          variant="ghost"
+          onClick={handleDecrement}
+          disabled={quantity <= 1}
+        >
           <MinusIcon />
         </Button>
         <p>{quantity}</p>
