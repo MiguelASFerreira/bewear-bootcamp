@@ -19,6 +19,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useCreateShippingAddress } from "@/hooks/mutations/use-create-shipping-address";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   email: z.email("E-mail inválido"),
@@ -38,6 +40,7 @@ type FormValues = z.infer<typeof formSchema>;
 
 const Addresses = () => {
   const [selectedAddress, setSelectedAddress] = useState<string | null>(null);
+  const createShippingAddressMutation = useCreateShippingAddress();
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -56,8 +59,16 @@ const Addresses = () => {
     },
   });
 
-  const onSubmit = (values: FormValues) => {
-    console.log(values);
+  const onSubmit = async (values: FormValues) => {
+    try {
+      await createShippingAddressMutation.mutateAsync(values);
+      toast.success("Endereço criado com sucesso!");
+      form.reset();
+      setSelectedAddress(null);
+    } catch (error) {
+      toast.error("Erro ao criar endereço. Tente novamente.");
+      console.error(error);
+    }
   };
 
   return (
@@ -260,8 +271,14 @@ const Addresses = () => {
                 />
               </div>
 
-              <Button type="submit" className="w-full">
-                Salvar endereço
+              <Button
+                type="submit"
+                className="w-full"
+                disabled={createShippingAddressMutation.isPending}
+              >
+                {createShippingAddressMutation.isPending
+                  ? "Salvando..."
+                  : "Salvar endereço"}
               </Button>
             </form>
           </Form>
