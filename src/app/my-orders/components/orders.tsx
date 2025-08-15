@@ -6,10 +6,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Card, CardContent } from "@/components/ui/card";
-import OrdersSummary from "./orders-summary";
 import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
 import type { orderTable } from "@/db/schema";
+
+import OrdersSummary from "./orders-summary";
 
 interface OrderProps {
   orders: Array<{
@@ -38,9 +39,13 @@ const Orders = ({ orders }: OrderProps) => {
               <AccordionItem value="item-1">
                 <AccordionTrigger>
                   <div className="flex flex-col gap-2">
-                    {order.status === "paid" && <Badge >Pago</Badge>}
-                    {order.status === "pending" && <Badge variant="outline">Pagamento Pendente</Badge>}
-                    {order.status === "canceled" && <Badge variant="destructive">Cancelado</Badge>}
+                    {order.status === "paid" && <Badge>Pago</Badge>}
+                    {order.status === "pending" && (
+                      <Badge variant="outline">Pagamento Pendente</Badge>
+                    )}
+                    {order.status === "canceled" && (
+                      <Badge variant="destructive">Cancelado</Badge>
+                    )}
                     <p>
                       Pedido feito em{" "}
                       {new Date(order.createdAt).toLocaleDateString("pt-BR")} às{" "}

@@ -1,9 +1,11 @@
 "use client";
 
 import { ShoppingBasketIcon } from "lucide-react";
+import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { formatCentsToBRL } from "@/helpers/money";
+import { useCart } from "@/hooks/queries/use-cart";
 
 import { ScrollArea } from "../ui/scroll-area";
 import { Separator } from "../ui/separator";
@@ -15,8 +17,6 @@ import {
   SheetTrigger,
 } from "../ui/sheet";
 import CartItem from "./cart-item";
-import { useCart } from "@/hooks/queries/use-cart";
-import Link from "next/link";
 
 export const Cart = () => {
   const { data: cart } = useCart();
