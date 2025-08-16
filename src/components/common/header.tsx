@@ -1,6 +1,12 @@
 "use client";
 
-import { LogInIcon, LogOutIcon, MenuIcon } from "lucide-react";
+import {
+  HomeIcon,
+  LogInIcon,
+  LogOutIcon,
+  MenuIcon,
+  PackageIcon,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -36,7 +42,7 @@ export const Header = () => {
             <SheetHeader>
               <SheetTitle>Menu</SheetTitle>
             </SheetHeader>
-            <div className="px-5">
+            <div className="space-y-4 px-5">
               {session?.user ? (
                 <>
                   <div className="flex justify-between space-y-6">
@@ -75,6 +81,25 @@ export const Header = () => {
                       <LogInIcon />
                     </Link>
                   </Button>
+                </div>
+              )}
+
+              {session?.user && (
+                <div className="space-y-4">
+                  <Link
+                    href="/"
+                    className="flex items-center gap-3 text-sm font-medium transition-colors hover:text-purple-600"
+                  >
+                    <HomeIcon className="h-4 w-4" />
+                    Início
+                  </Link>
+                  <Link
+                    href="/my-orders"
+                    className="flex items-center gap-3 text-sm font-medium transition-colors hover:text-purple-600"
+                  >
+                    <PackageIcon className="h-4 w-4" />
+                    Meus Pedidos
+                  </Link>
                 </div>
               )}
             </div>
